@@ -94,4 +94,14 @@ public class SuggesterTests
         IEnumerable<string> actualSuggestions = suggester.GetSuggestions("gros", availableChoices, 99);
         actualSuggestions.Should().HaveCount(2);
     }
+
+    [Fact]
+    public void Duplicate_entries_in_choices_are_preserved()
+    {
+        IDifferenceScorer differenceScorer = new DifferenceScorer();
+        ISuggester suggester = new Suggester(differenceScorer);
+        string[] availableChoices = new[] { "gros", "gros", "gras" };
+        IEnumerable<string> actualSuggestions = suggester.GetSuggestions("gros", availableChoices, 2);
+        actualSuggestions.Should().Equal("gros", "gros");
+    }
 }
