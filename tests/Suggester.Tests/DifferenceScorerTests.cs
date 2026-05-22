@@ -20,4 +20,12 @@ public class DifferenceScorerTests
         int actualDifferenceScore = differenceScorer.GetDifferenceScore("abcd", "wxyz");
         actualDifferenceScore.Should().Be(4);
     }
+
+    [Fact]
+    public void Gros_versus_gras_scores_one()
+    {
+        IDifferenceScorer differenceScorer = new DifferenceScorer();
+        int actualDifferenceScore = differenceScorer.GetDifferenceScore("gros", "gras");
+        actualDifferenceScore.Should().Be(1);
+    }
 }
