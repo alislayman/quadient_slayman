@@ -1,3 +1,4 @@
+using System;
 using FluentAssertions;
 using Xunit;
 
@@ -43,5 +44,13 @@ public class DifferenceScorerTests
         IDifferenceScorer differenceScorer = new DifferenceScorer();
         int actualDifferenceScore = differenceScorer.GetDifferenceScore(string.Empty, string.Empty);
         actualDifferenceScore.Should().Be(0);
+    }
+
+    [Fact]
+    public void Mismatched_lengths_throw_argument_exception()
+    {
+        IDifferenceScorer differenceScorer = new DifferenceScorer();
+        Action invocationWithMismatchedLengths = () => differenceScorer.GetDifferenceScore("abc", "abcd");
+        invocationWithMismatchedLengths.Should().Throw<ArgumentException>();
     }
 }
