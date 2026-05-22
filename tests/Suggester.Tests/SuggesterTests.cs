@@ -104,4 +104,14 @@ public class SuggesterTests
         IEnumerable<string> actualSuggestions = suggester.GetSuggestions("gros", availableChoices, 2);
         actualSuggestions.Should().Equal("gros", "gros");
     }
+
+    [Fact]
+    public void Empty_term_scores_zero_for_all_then_orders_by_length_then_alphabetical()
+    {
+        IDifferenceScorer differenceScorer = new DifferenceScorer();
+        ISuggester suggester = new Suggester(differenceScorer);
+        string[] availableChoices = new[] { "bb", "aa", "ccc" };
+        IEnumerable<string> actualSuggestions = suggester.GetSuggestions(string.Empty, availableChoices, 3);
+        actualSuggestions.Should().Equal("aa", "bb", "ccc");
+    }
 }
