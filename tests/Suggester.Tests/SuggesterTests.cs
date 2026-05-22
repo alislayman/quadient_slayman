@@ -84,4 +84,14 @@ public class SuggesterTests
         IEnumerable<string> actualSuggestions = suggester.GetSuggestions("ab", availableChoices, 1);
         actualSuggestions.Should().ContainSingle().Which.Should().Be("yy");
     }
+
+    [Fact]
+    public void Number_of_suggestions_greater_than_matches_returns_all_matches()
+    {
+        IDifferenceScorer differenceScorer = new DifferenceScorer();
+        ISuggester suggester = new Suggester(differenceScorer);
+        string[] availableChoices = new[] { "gros", "gras" };
+        IEnumerable<string> actualSuggestions = suggester.GetSuggestions("gros", availableChoices, 99);
+        actualSuggestions.Should().HaveCount(2);
+    }
 }
