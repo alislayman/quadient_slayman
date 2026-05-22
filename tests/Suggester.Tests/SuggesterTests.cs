@@ -44,4 +44,14 @@ public class SuggesterTests
         IEnumerable<string> actualSuggestions = suggester.GetSuggestions("gros", availableChoices, 1);
         actualSuggestions.Should().ContainSingle().Which.Should().Be("gros");
     }
+
+    [Fact]
+    public void Brief_example_returns_gros_and_gras()
+    {
+        IDifferenceScorer differenceScorer = new DifferenceScorer();
+        ISuggester suggester = new Suggester(differenceScorer);
+        string[] availableChoices = new[] { "gros", "gras", "graisse", "agressif", "go", "ros", "gro" };
+        IEnumerable<string> actualSuggestions = suggester.GetSuggestions("gros", availableChoices, 2);
+        actualSuggestions.Should().Equal("gros", "gras");
+    }
 }
