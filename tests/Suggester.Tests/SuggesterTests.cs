@@ -24,4 +24,14 @@ public class SuggesterTests
         IEnumerable<string> actualSuggestions = suggester.GetSuggestions("gros", availableChoices, 0);
         actualSuggestions.Should().BeEmpty();
     }
+
+    [Fact]
+    public void Choices_shorter_than_term_are_excluded()
+    {
+        IDifferenceScorer differenceScorer = new DifferenceScorer();
+        ISuggester suggester = new Suggester(differenceScorer);
+        string[] availableChoices = new[] { "go", "ros", "gro" };
+        IEnumerable<string> actualSuggestions = suggester.GetSuggestions("gros", availableChoices, 3);
+        actualSuggestions.Should().BeEmpty();
+    }
 }
