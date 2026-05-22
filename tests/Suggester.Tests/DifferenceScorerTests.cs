@@ -28,4 +28,12 @@ public class DifferenceScorerTests
         int actualDifferenceScore = differenceScorer.GetDifferenceScore("gros", "gras");
         actualDifferenceScore.Should().Be(1);
     }
+
+    [Fact]
+    public void Grai_versus_gros_scores_two()
+    {
+        IDifferenceScorer differenceScorer = new DifferenceScorer();
+        int actualDifferenceScore = differenceScorer.GetDifferenceScore("grai", "gros");
+        actualDifferenceScore.Should().Be(2);
+    }
 }
