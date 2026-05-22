@@ -3,4 +3,7 @@
     <Project Path="src/Suggester/Suggester.csproj" />
     <Project Path="src/Suggester.App/Suggester.App.csproj" />
   </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Suggester.Tests/Suggester.Tests.csproj" />
+  </Folder>
 </Solution>
