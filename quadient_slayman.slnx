@@ -1,5 +1,6 @@
 <Solution>
   <Folder Name="/src/">
     <Project Path="src/Suggester/Suggester.csproj" />
+    <Project Path="src/Suggester.App/Suggester.App.csproj" />
   </Folder>
 </Solution>
