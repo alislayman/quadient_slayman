@@ -19,6 +19,26 @@ public sealed class Suggester : ISuggester
         {
             return Enumerable.Empty<string>();
         }
-        return choices.Where(choice => choice.Length >= term.Length).Select(choice => new { ChoiceValue = choice, MinimumScore = _differenceScorer.GetDifferenceScore(term, choice.Substring(0, term.Length)) }).OrderBy(rankedChoice => rankedChoice.MinimumScore).Take(numberOfSuggestions).Select(rankedChoice => rankedChoice.ChoiceValue);
+        return choices.Where(choice => choice.Length >= term.Length).Select(choice => new { ChoiceValue = choice, MinimumScore = ComputeMinimumWindowScore(term, choice) }).OrderBy(rankedChoice => rankedChoice.MinimumScore).Take(numberOfSuggestions).Select(rankedChoice => rankedChoice.ChoiceValue);
+    }
+
+    private int ComputeMinimumWindowScore(string term, string choice)
+    {
+        if (term.Length == 0)
+        {
+            return 0;
+        }
+        int minimumScore = int.MaxValue;
+        int lastWindowStartIndex = choice.Length - term.Length;
+        for (int windowStartIndex = 0; windowStartIndex <= lastWindowStartIndex; windowStartIndex++)
+        {
+            string currentWindow = choice.Substring(windowStartIndex, term.Length);
+            int currentWindowScore = _differenceScorer.GetDifferenceScore(term, currentWindow);
+            if (currentWindowScore < minimumScore)
+            {
+                minimumScore = currentWindowScore;
+            }
+        }
+        return minimumScore;
     }
 }
