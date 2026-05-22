@@ -20,7 +20,7 @@ public sealed class Suggester : ISuggester
         {
             return Enumerable.Empty<string>();
         }
-        return choices.Where(choice => choice.Length >= term.Length).Select(choice => new { ChoiceValue = choice, MinimumScore = ComputeMinimumWindowScore(term, choice), LengthDelta = Math.Abs(choice.Length - term.Length) }).OrderBy(rankedChoice => rankedChoice.MinimumScore).ThenBy(rankedChoice => rankedChoice.LengthDelta).Take(numberOfSuggestions).Select(rankedChoice => rankedChoice.ChoiceValue);
+        return choices.Where(choice => choice.Length >= term.Length).Select(choice => new { ChoiceValue = choice, MinimumScore = ComputeMinimumWindowScore(term, choice), LengthDelta = Math.Abs(choice.Length - term.Length) }).OrderBy(rankedChoice => rankedChoice.MinimumScore).ThenBy(rankedChoice => rankedChoice.LengthDelta).ThenBy(rankedChoice => rankedChoice.ChoiceValue, StringComparer.Ordinal).Take(numberOfSuggestions).Select(rankedChoice => rankedChoice.ChoiceValue);
     }
 
     private int ComputeMinimumWindowScore(string term, string choice)
