@@ -1,5 +1,5 @@
-using System;
 using FluentAssertions;
+using Suggester.Interfaces;
 using Xunit;
 
 namespace Suggester.Tests;

@@ -1,4 +1,4 @@
-namespace Suggester;
+namespace Suggester.Interfaces;
 
 public interface IDifferenceScorer
 {
