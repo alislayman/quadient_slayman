@@ -64,4 +64,14 @@ public class SuggesterTests
         IEnumerable<string> actualSuggestions = suggester.GetSuggestions("gres", availableChoices, 1);
         actualSuggestions.Should().ContainSingle().Which.Should().Be("agressif");
     }
+
+    [Fact]
+    public void Tie_on_score_closer_length_wins()
+    {
+        IDifferenceScorer differenceScorer = new DifferenceScorer();
+        ISuggester suggester = new Suggester(differenceScorer);
+        string[] availableChoices = new[] { "agressif", "gras" };
+        IEnumerable<string> actualSuggestions = suggester.GetSuggestions("gros", availableChoices, 1);
+        actualSuggestions.Should().ContainSingle().Which.Should().Be("gras");
+    }
 }
