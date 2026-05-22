@@ -36,4 +36,12 @@ public class DifferenceScorerTests
         int actualDifferenceScore = differenceScorer.GetDifferenceScore("grai", "gros");
         actualDifferenceScore.Should().Be(2);
     }
+
+    [Fact]
+    public void Empty_strings_score_zero()
+    {
+        IDifferenceScorer differenceScorer = new DifferenceScorer();
+        int actualDifferenceScore = differenceScorer.GetDifferenceScore(string.Empty, string.Empty);
+        actualDifferenceScore.Should().Be(0);
+    }
 }
