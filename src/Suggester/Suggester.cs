@@ -51,11 +51,11 @@ public sealed class Suggester : ISuggester
 
         candidates.Sort((a, b) =>
         {
-            int comparison = a.LengthDelta.CompareTo(b.LengthDelta);
+            int comparison = a.Score.CompareTo(b.Score);
             if (comparison != 0)
                 return comparison;
 
-            comparison = a.Score.CompareTo(b.Score);
+            comparison = a.LengthDelta.CompareTo(b.LengthDelta);
             if (comparison != 0)
                 return comparison;
 
